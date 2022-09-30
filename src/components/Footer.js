@@ -1,7 +1,13 @@
 import React from 'react';
 import Button from './Button';
 
-const Footer = () => {
+const Footer = ({ todos, todoChangeFunction }) => {
+	const removeTodos = () => {
+		const newTodos = todos.filter((todo) => !todo.isCompleted);
+		todoChangeFunction(newTodos);
+		localStorage.setItem('todos', JSON.stringify(newTodos));
+	};
+
 	return (
 		<footer className='d-flex  justify-content-between bg-dark py-5 px-3'>
 			<ul className='d-flex gap-5 list-unstyled text-white'>
@@ -11,8 +17,10 @@ const Footer = () => {
 				<li>{12 < 10 ? 12 : 10}</li>
 				<li></li>
 			</ul>
-			<Button text={'Download'}>
-				<span>Nimadir</span>
+			<Button
+				clicked={removeTodos}
+				text={"Completedlarni o'chirib yuborish"}>
+				<span></span>
 			</Button>
 		</footer>
 	);
