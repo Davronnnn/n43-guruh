@@ -1,5 +1,6 @@
 import Button from './Button';
-const Header = () => {
+import { language as languageContent } from '../Languages/language';
+const Header = ({ language, setLanguage, setIsModalActive }) => {
 	return (
 		<header className=' d-flex justify-content-between align-items-center py-5 bg-secondary'>
 			<img
@@ -11,12 +12,24 @@ const Header = () => {
 			<Button text='Boshqa qiymat' />
 			<nav>
 				<ul className='d-flex gap-5 list-unstyled'>
+					<li>{languageContent[language].header.navItem1}</li>
 					<li>home</li>
-					<li>home</li>
-					<li>home</li>
+					<li>
+						<select
+							onChange={(e) => setLanguage(e.target.value)}
+							name=''
+							id=''>
+							<option value='uz'>Uz</option>
+							<option value='ru'>Ru</option>
+							<option value='eng'>Eng</option>
+						</select>
+					</li>
 				</ul>
 			</nav>
-			<Button text='Button' />
+			<Button
+				clickHandler={setIsModalActive}
+				text={languageContent[language].header.buttonTitle}
+			/>
 		</header>
 	);
 };

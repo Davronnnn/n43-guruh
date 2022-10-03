@@ -1,6 +1,6 @@
 const Button = (props) => {
 	return (
-		<button onClick={props.clicked} className='btn btn-primary'>
+		<button onClick={props.clickHandler} className='btn btn-primary'>
 			{props.text}
 		</button>
 	);

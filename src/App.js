@@ -1,84 +1,49 @@
-import { useState, useRef } from 'react';
-import TodoItem from './components/TodoItem';
+import Modal from './components/Modal';
+import Header from './components/Header';
+import { useState, useReducer } from 'react';
 import Footer from './components/Footer';
+import counterReducer from './reducer/counterReducer';
+import { INCREASE, DECREASE } from './utils/counterActions';
+
 const App = () => {
-	const todoInput = useRef();
-	const title = useRef();
-	const checkElement = useRef();
+	const [isModalActive, setIsModalActive] = useState(false);
+	const [language, setLanguage] = useState('eng');
 
-	const [todos, setTodos] = useState(
-		localStorage.getItem('todos')
-			? JSON.parse(localStorage.getItem('todos'))
-			: []
-	);
+	const initialState = {
+		counter: 0,
+		color: 'black',
+	};
+	const [data, dispatch] = useReducer(counterReducer, initialState);
 
-	const addTodo = (e) => {
-		console.log(checkElement.current);
-		title.current.textContent = 'Todo added';
-		e.preventDefault();
-		const newTodo = {
-			id: new Date().getTime(),
-			title: todoInput.current.value,
-			isCompleted: false,
-		};
-		setTodos([newTodo, ...todos]);
-
-		localStorage.setItem('todos', JSON.stringify([...todos, newTodo]));
-		// setInputTodo('');
-		todoInput.current.value = null;
+	const modalHandler = () => {
+		setIsModalActive((value) => !value);
 	};
 
-	const removeTodo = (id) => {
-		title.current.textContent = 'Todo removed';
-		const newTodos = todos.filter((todo) => todo.id !== id);
-		setTodos(newTodos);
-
-		localStorage.setItem('todos', JSON.stringify(newTodos));
+	const increaseCounter = () => {
+		dispatch({ type: INCREASE });
 	};
-
-	const checkTodo = (id) => {
-		const newTodos = todos.map((todo) => {
-			if (todo.id === id) {
-				todo.isCompleted = !todo.isCompleted;
-			}
-			return todo;
-		});
-
-		setTodos(newTodos);
-		localStorage.setItem('todos', JSON.stringify(newTodos));
+	const decreaseCounter = () => {
+		dispatch({ type: DECREASE });
 	};
 
 	return (
-		<div className='container mt-5'>
-			<h2 ref={title} className='text-center'>
-				My Todo List
-			</h2>
-			<form onSubmit={addTodo}>
-				<input
-					ref={todoInput}
-					className='form-control'
-					placeholder='Add todo...'
-					type='text'
-					name=''
-					id='todo-input'
-				/>
-			</form>
+		<>
+			<Header
+				setLanguage={setLanguage}
+				language={language}
+				setIsModalActive={modalHandler}
+			/>
+			<p style={{ color: data.color }}>{data.counter}</p>
+			<button onClick={increaseCounter}>Add 1</button>
+			<button onClick={decreaseCounter}>Remove 1</button>
+			<Modal
+				isModalActive={isModalActive}
+				setIsModalActive={setIsModalActive}
+			/>
+			<main style={{ height: '65vh' }}></main>
 
-			<ul className='mt-5 list-unstyled list-group'>
-				{todos.map((todo, i) => (
-					<TodoItem
-						ref={checkElement}
-						key={i}
-						index={i}
-						todo={todo}
-						removeTodoHandler={removeTodo}
-						checkTodoHandler={checkTodo}
-					/>
-				))}
-			</ul>
-
-			<Footer todos={todos} todoChangeFunction={setTodos} />
-		</div>
+			<Footer language={language} />
+		</>
 	);
 };
 

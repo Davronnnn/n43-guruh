@@ -1,7 +1,8 @@
 import React from 'react';
 import Button from './Button';
+import { language as languageContent } from '../Languages/language';
 
-const Footer = ({ todos, todoChangeFunction }) => {
+const Footer = ({ todos, todoChangeFunction, language }) => {
 	const removeTodos = () => {
 		const newTodos = todos.filter((todo) => !todo.isCompleted);
 		todoChangeFunction(newTodos);
@@ -11,8 +12,8 @@ const Footer = ({ todos, todoChangeFunction }) => {
 	return (
 		<footer className='d-flex  justify-content-between bg-dark py-5 px-3'>
 			<ul className='d-flex gap-5 list-unstyled text-white'>
-				<li>{1} item</li>
-				<li>{1 + 1} item</li>
+				<li>{languageContent[language].footer.item1}</li>
+				<li>{languageContent[language].footer.item2}</li>
 				<li>{1 + 1 + 1} item</li>
 				<li>{12 < 10 ? 12 : 10}</li>
 				<li></li>
