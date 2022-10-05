@@ -1,6 +1,8 @@
 import React from 'react';
-import Button from './Button';
-import { language as languageContent } from '../Languages/language';
+import Button from '../Button';
+import styles from './Footer.module.css';
+
+import { language as languageContent } from '../../Languages/language';
 
 const Footer = ({ todos, todoChangeFunction, language }) => {
 	const removeTodos = () => {
@@ -10,7 +12,9 @@ const Footer = ({ todos, todoChangeFunction, language }) => {
 	};
 
 	return (
-		<footer className='d-flex  justify-content-between bg-dark py-5 px-3'>
+		<footer
+			className={`d-flex  justify-content-between bg-dark py-5 px-3 ${styles.footer} `}>
+			<button className={styles.button}>button</button>
 			<ul className='d-flex gap-5 list-unstyled text-white'>
 				<li>{languageContent[language].footer.item1}</li>
 				<li>{languageContent[language].footer.item2}</li>

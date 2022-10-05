@@ -6,6 +6,7 @@ const Modal = ({ isModalActive, setIsModalActive }) => {
 			setIsModalActive(false);
 		}
 	};
+	console.log('modal');
 
 	return (
 		<div

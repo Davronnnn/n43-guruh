@@ -9,8 +9,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const root = ReactDOM.createRoot(document.querySelector('#root'));
 root.render(
-	<React.StrictMode>
+	<React.Fragment>
 		{/* <Home></Home> */}
 		<App />
-	</React.StrictMode>
+	</React.Fragment>
 );

@@ -1,47 +1,52 @@
-import Modal from './components/Modal';
-import Header from './components/Header';
-import { useState, useReducer } from 'react';
-import Footer from './components/Footer';
-import counterReducer from './reducer/counterReducer';
-import { INCREASE, DECREASE } from './utils/counterActions';
+// import Modal from './components/Modal';
+import Header from './components/Header/Header';
+import React, { useState, useEffect } from 'react';
+import Footer from './components/Footer/Footer';
 
 const App = () => {
-	const [isModalActive, setIsModalActive] = useState(false);
 	const [language, setLanguage] = useState('eng');
 
-	const initialState = {
-		counter: 0,
-		color: 'black',
-	};
-	const [data, dispatch] = useReducer(counterReducer, initialState);
+	const [counter, setCounter] = useState(0);
 
-	const modalHandler = () => {
-		setIsModalActive((value) => !value);
-	};
+	const [todos, setTodos] = useState([]);
 
-	const increaseCounter = () => {
-		dispatch({ type: INCREASE });
+	const handleCounter = () => {
+		setCounter((val) => val + 1);
 	};
-	const decreaseCounter = () => {
-		dispatch({ type: DECREASE });
-	};
+	// useEffect(() => {
+	// 	console.log("tug'ildi");
+	// }, []);
+
+	// useEffect(() => {
+	// 	console.log(counter, "ulg'ayyabdi");
+	// }, [counter]);
+
+	// useEffect(() => {
+	// 	const timer = setInterval(() => {
+	// 		// setCounter(counter + 1);
+	// 	}, 1000);
+
+	// 	return () => {
+	// 		console.log('timer is dead');
+	// 		clearInterval(timer);
+	// 	};
+	// }, [counter]);
 
 	return (
 		<>
-			<Header
-				setLanguage={setLanguage}
-				language={language}
-				setIsModalActive={modalHandler}
-			/>
-			<p style={{ color: data.color }}>{data.counter}</p>
-			<button onClick={increaseCounter}>Add 1</button>
-			<button onClick={decreaseCounter}>Remove 1</button>
-			<Modal
+			<div onClick={handleCounter}>counter:{counter}</div>
+			{todos.map((todo) => (
+				<div>{todo.title}</div>
+			))}
+			<button className='button'>Button</button>
+
+			<Header setLanguage={setLanguage} language={language} />
+
+			<main style={{ height: '65vh' }}></main>
+			{/* <Modal
 				isModalActive={isModalActive}
 				setIsModalActive={setIsModalActive}
-			/>
-			<main style={{ height: '65vh' }}></main>
-
+			/> */}
 			<Footer language={language} />
 		</>
 	);

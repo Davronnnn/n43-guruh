@@ -5,7 +5,9 @@ const Todo = () => {
 	const todoInput = useRef();
 	const title = useRef();
 	const checkElement = useRef();
+
 	const [isLoading, setIsLoading] = useState(true);
+
 	const [todos, setTodos] = useState(
 		localStorage.getItem('todos')
 			? JSON.parse(localStorage.getItem('todos'))
