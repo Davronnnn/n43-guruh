@@ -1,19 +1,15 @@
 import React from 'react';
-import { useContext } from 'react';
-import { TodoContext } from '../../context/TodoContext';
 
 const Header = () => {
-	const { todosLength } = useContext(TodoContext);
-
 	return (
 		<header>
-			<nav className='navbar navbar-expand-lg navbar-light bg-white p-5'>
+			<nav className='navbar navbar-expand-lg navbar-light bg-white'>
 				<div className='container-fluid'>
 					<button
 						className='navbar-toggler'
 						type='button'
 						data-mdb-toggle='collapse'
-						data-mdb-target='#navbarExample01'
+						data-mdb-target='/navbarExample01'
 						aria-controls='navbarExample01'
 						aria-expanded='false'
 						aria-label='Toggle navigation'>
@@ -49,9 +45,7 @@ const Header = () => {
 						</ul>
 					</div>
 				</div>
-				<button className='btn btn-primary'>
-					Number:{todosLength}
-				</button>
+				<button className='btn'>Sign in</button>
 			</nav>
 		</header>
 	);
