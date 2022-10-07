@@ -1,22 +1,30 @@
-import React from 'react';
-import { useState, useRef } from 'react';
+import React, { useState, useRef, useContext, useEffect } from 'react';
+
+import { TodoContext } from '../context/TodoContext';
+
 import TodoItem from './TodoItem';
+
 const Todo = () => {
+	const { setTodosLength } = useContext(TodoContext);
+
 	const todoInput = useRef();
 	const title = useRef();
 	const checkElement = useRef();
-
-	const [isLoading, setIsLoading] = useState(true);
 
 	const [todos, setTodos] = useState(
 		localStorage.getItem('todos')
 			? JSON.parse(localStorage.getItem('todos'))
 			: []
 	);
+	const [isLoading, setIsLoading] = useState(true);
 
 	setTimeout(() => {
 		setIsLoading(false);
 	}, 2000);
+
+	useEffect(() => {
+		setTodosLength(todos.length);
+	}, [todos, setTodosLength]);
 
 	const addTodo = (e) => {
 		title.current.textContent = 'Todo added';
@@ -26,6 +34,7 @@ const Todo = () => {
 			title: todoInput.current.value,
 			isCompleted: false,
 		};
+
 		setTodos([newTodo, ...todos]);
 
 		localStorage.setItem('todos', JSON.stringify([...todos, newTodo]));
