@@ -5,15 +5,15 @@ import './index.scss';
 import App from './App';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { ThemeContextProvider } from './context/ThemeContext';
+import { AuthContextProvider } from './context/authContext';
 
 const root = ReactDOM.createRoot(document.querySelector('#root'));
 root.render(
 	<React.Fragment>
 		<BrowserRouter>
-			<ThemeContextProvider>
+			<AuthContextProvider>
 				<App />
-			</ThemeContextProvider>
+			</AuthContextProvider>
 		</BrowserRouter>
 	</React.Fragment>
 );
