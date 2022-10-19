@@ -1,32 +1,20 @@
 // import Modal from './components/Modal';
 import React from 'react';
-import { useContext } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
-import authContext from './context/authContext';
+import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import Login from './pages/Login';
-import Profile from './pages/Profile';
-import SignUp from './pages/SignUp';
+import InnerHome from './pages/InnerHome';
+import Tweets from './pages/Tweets';
 
 const App = () => {
-	const { token } = useContext(authContext);
+	console.log('app running');
 
 	return (
 		<>
 			<Routes>
-				{token ? (
-					<>
-						<Route path='/' element={<Home />} />
-						<Route path='/profile/:id' element={<Profile />} />
-						<Route path='*' element={<Navigate to={'/'} />} />
-					</>
-				) : (
-					<>
-						<Route path='/login' element={<Login />} />
-						<Route path='/signup' element={<SignUp />} />
-						<Route path='*' element={<Navigate to={'/login'} />} />
-					</>
-				)}
+				<Route path='/profile' element={<Home />}>
+					<Route path='' element={<Tweets />} />
+					<Route path='with' element={<InnerHome />} />
+				</Route>
 			</Routes>
 		</>
 	);
